@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (rq,rs) => {
- const remoteAddress = rq.headers.remoteAddress;
+  const remoteAddress = rq.headers['x-forwarded-for'] || rq.connection.remoteAddress;
   const ip = rq.ip;
   rs.status(200).json({remoteAddress, ip})
 })
